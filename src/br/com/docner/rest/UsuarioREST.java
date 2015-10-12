@@ -15,7 +15,6 @@ import org.apache.logging.log4j.Logger;
 
 import br.com.docner.dao.UsuarioDAO;
 import br.com.docner.model.Usuario;
-import br.com.docner.model.dto.UsuarioDTO;
 import br.com.docner.rest.factory.FactoryREST;
 
 /**
@@ -50,7 +49,7 @@ public class UsuarioREST extends FactoryREST{
 	@Path( "/efetuarLogin" )
 	@Produces( MediaType.APPLICATION_JSON )
 	@Consumes( MediaType.APPLICATION_JSON )
-	public Response efetuarLogin( UsuarioDTO usuario, @Context HttpServletRequest request ) {
+	public Response efetuarLogin( Usuario usuario, @Context HttpServletRequest request ) {
 		Usuario user = new Usuario();
 		user.setNome( "iraa" );
 		user.setEmail( "jo_souza92@yahoo.com.br" );

@@ -3,7 +3,7 @@ package br.com.docner.rest.factory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import br.com.docner.model.dto.UsuarioDTO;
+import br.com.docner.model.Usuario;
 
 /**
  * 
@@ -23,9 +23,9 @@ public class FactoryREST{
 	 * @author Jonathan de Souza <jo_souza92@yahoo.com.br>
 	 * 
 	 */
-	protected final UsuarioDTO getUsuarioSessao( HttpServletRequest request ) {
+	protected final Usuario getUsuarioSessao( HttpServletRequest request ) {
 		HttpSession session = request.getSession();
-		return (UsuarioDTO) session.getAttribute( "usuario" );
+		return (Usuario) session.getAttribute( "usuario" );
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class FactoryREST{
 	 * 
 	 */
 	protected final boolean validarPermissaoUsuario( HttpServletRequest request ) {
-		UsuarioDTO usuarioLogado = getUsuarioSessao( request );
+		Usuario usuarioLogado = getUsuarioSessao( request );
 
 		if ( usuarioLogado != null ) {
 			return true;

@@ -97,7 +97,7 @@
 			    contentType: 'application/json',
 			    url: 'rest/usuario/efetuarLogin',
 			    dataType: "json",
-			    data: JSON.stringify({"descricao": $.trim($("#usuario_id").val()), "senha": $.trim($("#senha_id").val())}),
+			    data: JSON.stringify({"nome": $.trim($("#usuario_id").val()), "senha": $.trim($("#senha_id").val())}),
 			    success: function(data, textStatus, jqXHR){
 			    	console.log(data);
 			    },
