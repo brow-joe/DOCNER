@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+    	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    	<meta charset="utf-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+    	<title>DOCNER</title>
+
+    	<link href="../../assets/css/bootstrap.min.css" rel="stylesheet">
+    	<link href="../../assets/fonts/css/font-awesome.min.css" rel="stylesheet">
+    	<link href="../../assets/css/animate.min.css" rel="stylesheet">
+    	<link href="../../assets/css/custom.css" rel="stylesheet">
+    	<link href="../../assets/css/icheck/flat/green.css" rel="stylesheet">
+    	<script src="../../assets/js/jquery.min.js"></script>
+
+	</head>
+
+	<body class="nav-md">
+    	<div class="container body">
+        	<div class="main_container">
+            	<div class="col-md-12">
+                	<div class="col-middle">
+                    	<div class="text-center text-center">
+                        	<h1 class="error-number" id="error_cod_id">0</h1>
+                        	<h2 id="error_name_id">Sorry</h2>
+                        	<p id="error_description_id">error
+                        	</p>
+                        	<div class="mid_center">
+                            	<h3>Search</h3>
+                            	<form>
+                                	<div class="col-xs-12 form-group pull-right top_search">
+                                    	<div class="input-group">
+                                        	<input type="text" class="form-control" placeholder="Search for...">
+                                        	<span class="input-group-btn">
+                            					<button class="btn btn-default" type="button">Go!</button>
+                        					</span>
+                                    	</div>
+                                	</div>
+                            	</form>
+                        	</div>
+                    	</div>
+                	</div>
+            	</div>
+        	</div>
+    	</div>
+
+    	<div id="custom_notifications" class="custom-notifications dsp_none">
+        	<ul class="list-unstyled notifications clearfix" data-tabbed_notifications="notif-group">
+        	</ul>
+        	<div class="clearfix"></div>
+        	<div id="notif-group" class="tabbed_notifications"></div>
+    	</div>
+
+    	<script src="../../assets/js/bootstrap.min.js"></script>
+    	<script src="../../assets/js/chartjs/chart.min.js"></script>
+    	<script src="../../assets/js/progressbar/bootstrap-progressbar.min.js"></script>
+    	<script src="../../assets/js/nicescroll/jquery.nicescroll.min.js"></script>
+    	<script src="../../assets/js/icheck/icheck.min.js"></script>
+    	<script src="../../assets/js/custom.js"></script>
+    	<script src="../../assets/js/generic.js"></script>
+ 
+    	<script type="text/javascript">
+    	init();
+    	
+    	function init(){
+    		var parameters = getQueryString();
+    		$("#error_cod_id").html(parameters.ce);
+    		$("#error_name_id").html(parameters.ne);
+    		$("#error_description_id").html(parameters.de);
+    		limpaUrl();
+    	}
+    	</script>
+    	
+	</body>
+
+</html>
