@@ -1,0 +1,15 @@
+Configutation:
+  status: WARN
+
+  Appenders:
+    Console:
+      name: Console
+      target: SYSTEM_OUT
+      PatternLayout:
+        Pattern: "%d{HH:mm:ss} [%t - %F: %L] %-5level - %msg%n"
+
+  Loggers:
+    Root:
+      level: debug
+      AppenderRef:
+        ref: Console
