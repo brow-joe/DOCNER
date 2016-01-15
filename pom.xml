@@ -54,6 +54,7 @@
 
 	<modules>
 		<module>DocnerWS</module>
+		<module>EurekaServerRegistry</module>
 	</modules>
 
 </project>

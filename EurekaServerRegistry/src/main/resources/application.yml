@@ -1,0 +1,23 @@
+server:
+  port: ${vcap.application.port:8761}
+
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+      
+
+ribbon:
+  eureka:
+    enabled: true
