@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class TimeSessionConfig{
+public class WebSessionTimeoutConfig{
 	private final Integer SESSION_TIME_MINUTES = 10;
 
 	@Bean
