@@ -16,12 +16,8 @@ import br.com.docner.jpa.repository.UsuarioRepository;
 @Service
 public class AuthenticationUserService implements UserDetailsService{
 
-	private final UsuarioRepository repository;
-
 	@Autowired
-	public AuthenticationUserService( UsuarioRepository repository ){
-		this.repository = repository;
-	}
+	private UsuarioRepository repository;
 
 	@Override
 	public UserDetails loadUserByUsername( String username ) throws UsernameNotFoundException {
@@ -32,7 +28,7 @@ public class AuthenticationUserService implements UserDetailsService{
 		return new UsuarioDetail( usuario );
 	}
 
-	private final static class UsuarioDetail implements UserDetails{
+	private final class UsuarioDetail implements UserDetails{
 		private static final long serialVersionUID = 1L;
 
 		private Usuario usuario;

@@ -18,7 +18,7 @@ import br.com.docner.service.AuthenticationUserService;
 @EnableWebMvcSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	private static final Integer STRENGTH = -1;
-	private static String SECRET = "0a41b9ac-4c19-4afe-900c-e1842c95d1f7";
+	private static final String SECRET = "0a41b9ac-4c19-4afe-900c-e1842c95d1f7";
 
 	@Autowired
 	private PasswordEncoder ENCODER;
