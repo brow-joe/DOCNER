@@ -1,25 +1,160 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt">
+
 	<head>
-		<meta charset="ISO-8859-1">
-		<title>Home user</title>
+		<meta charset="UTF-8">
+    	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    						<title>DOCNER</title>
+    					
+    	<!-- Configuracao do css -->
+		<style>
+			body {
+			    background-image:none
+			}
+			#userimg {
+				position: absolute; 
+				left: 100px; 
+				top: 15px;
+			}
+		</style>
+			
+    	<!-- Import CSS -->
+    	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    	<link href="assets/css/template.css" rel="stylesheet">
 	</head>
 	
-	<body>
-		<div>
-			<a href="/"> Index </a>
+	<body class="theme-clean main-menu-animated hold-transition skin-blue sidebar-mini">
+		<script>var page = [];</script>
+		
+		<div id="loading">
+			<div class="loader loader-light loader-large"></div>
 		</div>
-		<div>
-			<a href="/logout"> Log out </a>
+		
+		<div id="main-wrapper">
+			<div id="main-navbar" class="navbar navbar-inverse" role="navigation">
+				<button type="button" id="main-menu-toggle">
+					<i class="navbar-icon fa fa-bars icon"></i>
+				</button>
+				
+				<div class="navbar-inner">
+					<div class="navbar-header">
+						<a href="/" class="navbar-brand">
+							<div><img alt="Document Classifier" src="assets/img/30-icone-documentos-google-600x600.png"></div> DocNER
+						</a>
+					</div>
+		
+					<div id="main-navbar-collapse" class="collapse navbar-collapse main-navbar-collapse">
+						<div>
+							<ul class="nav navbar-nav">
+								<li>
+									<a href="#">Log processamento</a>
+								</li>
+							</ul>
+						
+							<div class="right clearfix">
+								<ul class="nav navbar-nav pull-right right-navbar-nav">
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle user-menu" data-toggle="dropdown">
+											<img src="assets/img/default.jpg" alt="" id="userimg">
+											<span>Brow Joe</span>
+										</a>
+										<ul class="dropdown-menu">
+											<li><a href="/logout"><i class="dropdown-icon fa fa-power-off"></i>&nbsp;&nbsp;Sair</a></li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+			<div id="main-menu" role="navigation">
+				<div id="main-menu-inner">
+					<div class="menu-content top animated fadeIn" id="menu-content-demo">
+						<div>
+							<div class="text-bg"><span class="text-slim">Bem vindo,</span> <span class="text-semibold">Brow Joe</span></div>
+					
+							<img src="assets/img/default.jpg" alt="" class="">
+							<div class="btn-group">
+								<a href="#" class="btn btn-xs btn-primary btn-outline dark"><i class="fa fa-user"></i></a>
+								<a href="#" class="btn btn-xs btn-primary btn-outline dark"><i class="fa fa-cog"></i></a>
+								<a href="/home" class="btn btn-xs btn-danger btn-outline dark"><i class="fa  fa-home"></i></a>
+								<a href="/logout" class="btn btn-xs btn-danger btn-outline dark"><i class="fa fa-power-off"></i></a>
+							</div>
+						</div>
+					</div>
+				
+					<ul class="navigation">
+						<li class=" active">
+							<a href="#"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text mmc-dropdown-delay animated fadeIn">Menu</span></a>
+						</li>
+						
+						<li class="mm-dropdown mm-dropdown-root">
+							<a href="#"><i class="menu-icon fa fa-th"></i><span class="mm-text mmc-dropdown-delay animated fadeIn">TreeMenu</span><span class="label label-warning">example</span></a>
+							<ul class="mmc-dropdown-delay animated fadeInLeft">
+								<li>
+									<a tabindex="-1" href="#"><span class="mm-text">Sub-Menu 1</span></a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#"><i class="menu-icon fa fa-th-list"></i><span class="mm-text">Sub-Menu 2</span><span class="label label-warning">item</span></a>
+								</li>
+							</ul>
+						</li>
+					</ul>			
+				</div>
+			</div>
+		
+			<div id="content-wrapper">
+					<div class="page-header">
+						<h1><span class="text-light-gray">Pagina inicial</h1>
+					</div>
+					<div class="panel">
+						<div class="panel-heading">
+							<span class="panel-title">Cabecalho</span>
+						</div>
+						<div class="panel-body">
+							<div class="panel panel-transparent">
+								<span class="text-light-gray">Conteudo</span>
+							</div>
+						</div>
+					</div>
+			</div>
+			<div id="main-menu-bg"></div>
 		</div>
+			
+		<!-- Import css -->
+		<script src="assets/js/jquery-2.2.0.min.js" type="text/javascript"></script>
+		<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+		<script src="assets/js/template.min.js" type="text/javascript"></script>
+		<script src="assets/js/generic.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			//Loading
+			$(window).load(function(){
+				$('#loading').fadeOut();
+			});
+			
+			$(document).ready(function() {
+				limpaUrl(true);
+			});
+			
+			$('.navigation li').click(function(){
+				if(!$(this).is("li.mm-dropdown")){
+					$('.navigation li').removeClass("active");
+        			$(this).addClass('active');
+				}
+			});
+			
+			$('.mmc-dropdown-delay li').click(function(){
+        		$('.mmc-dropdown-delay li').removeClass("active");
+        		$(this).addClass('active');
+			});
+			
+			page.push(function () {
+			});
+			window.Template.start(page);
+		</script>
 	</body>
-	
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/generic.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			limpaUrl(true);
-		});
-	</script>
-	
 </html>
