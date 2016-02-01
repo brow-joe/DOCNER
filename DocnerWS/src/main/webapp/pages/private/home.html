@@ -47,12 +47,6 @@
 		
 					<div id="main-navbar-collapse" class="collapse navbar-collapse main-navbar-collapse">
 						<div>
-							<ul class="nav navbar-nav">
-								<li>
-									<a href="#">Log processamento</a>
-								</li>
-							</ul>
-						
 							<div class="right clearfix">
 								<ul class="nav navbar-nav pull-right right-navbar-nav">
 									<li class="dropdown">
@@ -124,6 +118,33 @@
 			</div>
 			<div id="main-menu-bg"></div>
 		</div>
+		
+		<div id="demo-settings" class = ''>
+			<a onclick="exibeLog();" id="demo-settings-toggler" class="fa fa-cloud-download"></a>
+			<h5 class="header">Log Processamento</h5>
+			<div>
+				<ul id="demo-settings-list">
+					<li class="clearfix">
+						<span>processo 1</span>
+						<div class="progress progress-striped active"><div class="progress-bar" style="width: 60%;"></div>&nbsp;&nbsp;60%<br>
+							Processando algo
+						</div>
+					</li>
+					<li class="clearfix">
+						<span>processo 2</span>
+						<div class="progress progress-striped active"><div class="progress-bar" style="width: 30%;"></div>&nbsp;&nbsp;30%<br>
+							Processando algo
+						</div>
+					</li>
+					<li class="clearfix">
+						<span>processo 3</span>
+						<div class="progress progress-striped active"><div class="progress-bar progress-bar-warning" style="width: 11%;"></div>&nbsp;&nbsp;11%<br>
+							Processando algo
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
 			
 		<!-- Import css -->
 		<script src="assets/js/jquery-2.2.0.min.js" type="text/javascript"></script>
@@ -151,6 +172,14 @@
         		$('.mmc-dropdown-delay li').removeClass("active");
         		$(this).addClass('active');
 			});
+			
+			function exibeLog(){
+				if($('#demo-settings').attr('class') == ''){
+					$('#demo-settings').addClass('open');
+				}else{
+					$('#demo-settings').removeClass("open");
+				}
+			}
 			
 			page.push(function () {
 			});
