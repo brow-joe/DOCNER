@@ -25,7 +25,7 @@
     	<link href="assets/css/template.css" rel="stylesheet">
 	</head>
 	
-	<body class="theme-clean main-menu-animated hold-transition skin-blue sidebar-mini">
+	<body ng-app="menu_app" class="theme-clean main-menu-animated hold-transition skin-blue sidebar-mini">
 		<script>var page = [];</script>
 		
 		<div id="loading">
@@ -75,46 +75,39 @@
 							<div class="btn-group">
 								<a href="#" class="btn btn-xs btn-primary btn-outline dark"><i class="fa fa-user"></i></a>
 								<a href="#" class="btn btn-xs btn-primary btn-outline dark"><i class="fa fa-cog"></i></a>
-								<a href="/home" class="btn btn-xs btn-danger btn-outline dark"><i class="fa  fa-home"></i></a>
+								<a href="/home" class="btn btn-xs btn-warning btn-outline dark"><i class="fa  fa-home"></i></a>
 								<a href="/logout" class="btn btn-xs btn-danger btn-outline dark"><i class="fa fa-power-off"></i></a>
 							</div>
 						</div>
 					</div>
 				
-					<ul class="navigation">
+					<ul class="navigation" data-ng-controller="menuNavigation">
 						<li class=" active">
-							<a href="#"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text mmc-dropdown-delay animated fadeIn">Menu</span></a>
+							<a href="#/inicio"><i class="menu-icon fa fa-home"></i><span class="mm-text mmc-dropdown-delay animated fadeIn">Inicio</span></a>
 						</li>
-						
-						<li class="mm-dropdown mm-dropdown-root">
-							<a href="#"><i class="menu-icon fa fa-th"></i><span class="mm-text mmc-dropdown-delay animated fadeIn">TreeMenu</span><span class="label label-warning">example</span></a>
-							<ul class="mmc-dropdown-delay animated fadeInLeft">
+							
+						<li class="mm-dropdown mm-dropdown-root" data-ng-repeat="item in items">
+							<a href="">
+								<i class="menu-icon {{item.classe}}"></i>
+									<span class="mm-text mmc-dropdown-delay animated fadeIn">{{item.nome}}</span>
+									<span ng-if="(item.descricao != undefined) && (item.label != undefined)" class="label {{item.label}}">{{item.descricao}}</span>
+							</a>
+							<ul class="mmc-dropdown-delay animated fadeInLeft" data-ng-repeat="subMenus in item.subMenus">
 								<li>
-									<a tabindex="-1" href="#"><span class="mm-text">Sub-Menu 1</span></a>
-								</li>
-								<li>
-									<a tabindex="-1" href="#"><i class="menu-icon fa fa-th-list"></i><span class="mm-text">Sub-Menu 2</span><span class="label label-warning">item</span></a>
+									<a tabindex="-1" href="#{{subMenus.view}}">
+										<i class="menu-icon {{subMenus.classe}}">
+										</i><span class="mm-text">{{subMenus.nome}}</span>
+										<span ng-if="(subMenus.descricao != undefined) && (subMenus.label != undefined)" class="label {{subMenus.label}}">{{subMenus.descricao}}</span>
+									</a>
 								</li>
 							</ul>
 						</li>
-					</ul>			
+					</ul>
 				</div>
 			</div>
 		
 			<div id="content-wrapper">
-					<div class="page-header">
-						<h1><span class="text-light-gray">Pagina inicial</h1>
-					</div>
-					<div class="panel">
-						<div class="panel-heading">
-							<span class="panel-title">Cabecalho</span>
-						</div>
-						<div class="panel-body">
-							<div class="panel panel-transparent">
-								<span class="text-light-gray">Conteudo</span>
-							</div>
-						</div>
-					</div>
+				<div ng-view></div>
 			</div>
 			<div id="main-menu-bg"></div>
 		</div>
@@ -151,6 +144,11 @@
 		<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
 		<script src="assets/js/template.min.js" type="text/javascript"></script>
 		<script src="assets/js/generic.js" type="text/javascript"></script>
+		<script src="assets/js/angular.min.js" type="text/javascript"></script>
+		<script src="assets/js/angular-route.min.js" type="text/javascript"></script>
+		
+		<script src="assets/app/home_app.js" type="text/javascript"></script>
+		
 		<script type="text/javascript">
 			//Loading
 			$(window).load(function(){
@@ -159,18 +157,6 @@
 			
 			$(document).ready(function() {
 				limpaUrl(true);
-			});
-			
-			$('.navigation li').click(function(){
-				if(!$(this).is("li.mm-dropdown")){
-					$('.navigation li').removeClass("active");
-        			$(this).addClass('active');
-				}
-			});
-			
-			$('.mmc-dropdown-delay li').click(function(){
-        		$('.mmc-dropdown-delay li').removeClass("active");
-        		$(this).addClass('active');
 			});
 			
 			function exibeLog(){
@@ -182,7 +168,18 @@
 			}
 			
 			page.push(function () {
+				$('.navigation li').click(function(){
+					if(!$(this).is("li.mm-dropdown")){
+						$('.navigation li').removeClass("active");
+	        			$(this).addClass('active');
+					}
+				});
+				$('.mmc-dropdown-delay li').click(function(){
+	        		$('.mmc-dropdown-delay li').removeClass("active");
+	        		$(this).addClass('active');
+				});
 			});
+			
 			window.Template.start(page);
 		</script>
 	</body>
