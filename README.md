@@ -3,8 +3,8 @@
 
 # DocNER - Classificação com base em características #
 
-[![Github-Master](https://github.com/brow-joe/DOCNER/tree/master)
-[![Github-Develop](https://github.com/brow-joe/DOCNER/tree/develop)
+[![Github-Release](https://github.com/brow-joe/DOCNER/tree/master)
+[![Github-Release](https://github.com/brow-joe/DOCNER/tree/develop)
 
 DocNer é uma api desenvolvida em java como projeto de conclusão de curso do curso de ciência da computação da faculdades anhanguera de bauru
 
@@ -23,5 +23,6 @@ Frameworks utilizados:
 - [Mallet](http://mallet.cs.umass.edu/)
 - [Encog](http://www.heatonresearch.com/encog/)
 - [Spring boot](https://projects.spring.io/spring-boot/)
+...
 
 #### Para mais detalhes sobre a pesquisa consulte a [Monografia](http://www.google.com.br/AindaNaoDisponivel).  ####
