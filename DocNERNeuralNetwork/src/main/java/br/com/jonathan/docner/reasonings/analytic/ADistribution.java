@@ -1,4 +1,4 @@
-package br.com.jonathan.docner.reasonings.logic;
+package br.com.jonathan.docner.reasonings.analytic;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

@@ -12,8 +12,8 @@ import org.apache.log4j.Logger;
 
 import com.google.common.io.Resources;
 
-import br.com.jonathan.docner.reasonings.EReasoningAnalytic;
 import br.com.jonathan.docner.reasonings.EReasoningLogic;
+import br.com.jonathan.docner.reasonings.EReasoningAnalytic;
 import br.com.jonathan.docner.vo.RNDataOutVO;
 import br.com.jonathan.docner.vo.ResultSetVO;
 import junit.framework.TestCase;
@@ -82,16 +82,16 @@ public class TrainerTest extends TestCase{
 		
 		assertNotNull( trainerSet );
 		
-		List< EReasoningLogic > logics = Arrays.asList(
-				EReasoningLogic.POISSON, 
-				EReasoningLogic.NAIVE_BAYES 
-		);
 		List< EReasoningAnalytic > analytics = Arrays.asList(
-				EReasoningAnalytic.REGRESSAO_LOGISTICA_MULTINOMIAL, 
-				EReasoningAnalytic.MULTILAYER_PERCEPTRON
+				EReasoningAnalytic.POISSON, 
+				EReasoningAnalytic.NAIVE_BAYES 
+		);
+		List< EReasoningLogic > logics = Arrays.asList(
+				EReasoningLogic.REGRESSAO_LOGISTICA_MULTINOMIAL, 
+				EReasoningLogic.MULTILAYER_PERCEPTRON
 		);
 		
-		RNDataOutVO vo = network.trainer( trainerSet, logics, analytics );
+		RNDataOutVO vo = network.trainer( trainerSet, analytics, logics );
 
 		return vo;
 	}

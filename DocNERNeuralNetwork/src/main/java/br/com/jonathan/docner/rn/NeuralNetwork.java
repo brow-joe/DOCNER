@@ -13,8 +13,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import br.com.jonathan.docner.reasonings.EReasoningAnalytic;
 import br.com.jonathan.docner.reasonings.EReasoningLogic;
+import br.com.jonathan.docner.reasonings.EReasoningAnalytic;
 import br.com.jonathan.docner.reasonings.ReasoningException;
 import br.com.jonathan.docner.reasonings.ReasoningMappingResolver;
 import br.com.jonathan.docner.vo.RNDataInVO;
@@ -40,8 +40,8 @@ public class NeuralNetwork implements INeuralNetwork{
 	}
 
 	@Override
-	public RNDataOutVO trainer( String dataSet, List< EReasoningLogic > logics, List< EReasoningAnalytic > analytics ) throws NeuralException {
-		if ( CollectionUtils.isEmpty( logics ) && CollectionUtils.isEmpty( analytics ) ) {
+	public RNDataOutVO trainer( String dataSet, List< EReasoningAnalytic > analytics, List< EReasoningLogic > logics ) throws NeuralException {
+		if ( CollectionUtils.isEmpty( analytics ) && CollectionUtils.isEmpty( logics ) ) {
 			throw new NeuralException( MSG_REASONINGS_EMPTY );
 		}
 
@@ -64,7 +64,7 @@ public class NeuralNetwork implements INeuralNetwork{
 			).collect( Collectors.joining( DOCUMENT_SEPARATOR ) )
 					.trim();
 			
-			return collectReasoning( dataSet, logics, analytics );
+			return collectReasoning( dataSet, analytics, logics );
 		} else {
 			throw new NeuralException( MSG_DATASET_EMPTY );
 		}
@@ -108,7 +108,7 @@ public class NeuralNetwork implements INeuralNetwork{
 		throw new NeuralException( MSG_DATACLASSIFIER_MODEL_EMPTY );
 	}
 
-	private RNDataOutVO collectReasoning( String dataSet, List< EReasoningLogic > logics, List< EReasoningAnalytic > analytics ) throws NeuralException {
+	private RNDataOutVO collectReasoning( String dataSet, List< EReasoningAnalytic > analytics, List< EReasoningLogic > logics ) throws NeuralException {
 		List< RNDataInVO > dataInListed = new ArrayList< >();
 		
 		String splited = new String( dataSet );
@@ -125,18 +125,18 @@ public class NeuralNetwork implements INeuralNetwork{
 		
 		try {
 			int sequence = 0;
-			if ( CollectionUtils.isNotEmpty( logics ) ) {
-				for ( EReasoningLogic logic : logics ) {
-					RNDataInVO dataIn = resolver.trainerResolve( sequence++, logic, dataSet, sequential );
+			if ( CollectionUtils.isNotEmpty( analytics ) ) {
+				for ( EReasoningAnalytic analytic : analytics ) {
+					RNDataInVO dataIn = resolver.trainerResolve( sequence++, analytic, dataSet, sequential );
 					if ( Objects.nonNull( dataIn ) ) {
 						dataInListed.add( dataIn );
 					}
 				}
 			}
 
-			if ( CollectionUtils.isNotEmpty( analytics ) ) {
-				for ( EReasoningAnalytic analytic : analytics ) {
-					RNDataInVO dataIn = resolver.trainerResolve( sequence++, analytic, dataSet, sequential );
+			if ( CollectionUtils.isNotEmpty( logics ) ) {
+				for ( EReasoningLogic logic : logics ) {
+					RNDataInVO dataIn = resolver.trainerResolve( sequence++, logic, dataSet, sequential );
 					if ( Objects.nonNull( dataIn ) ) {
 						dataInListed.add( dataIn );
 					}

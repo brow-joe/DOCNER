@@ -1,4 +1,4 @@
-package br.com.jonathan.docner.reasonings.logic;
+package br.com.jonathan.docner.reasonings.analytic;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.util.Map;
 
 import org.apache.log4j.LogManager;
 
-import br.com.jonathan.docner.reasonings.EReasoningLogic;
+import br.com.jonathan.docner.reasonings.EReasoningAnalytic;
 import br.com.jonathan.docner.reasonings.ReasoningException;
 import br.com.jonathan.docner.vo.RNDataInVO;
 
@@ -24,7 +24,7 @@ public class Poisson extends ADistribution{
 			ByteArrayOutputStream out = trainer( dataSet );
 			return new RNDataInVO( 
 					sequence,
-					EReasoningLogic.POISSON, 
+					EReasoningAnalytic.POISSON, 
 					out, 
 					getResultSequential(out, sequential)
 			);

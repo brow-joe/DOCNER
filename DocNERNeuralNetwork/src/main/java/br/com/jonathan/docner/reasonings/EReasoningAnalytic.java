@@ -2,7 +2,7 @@ package br.com.jonathan.docner.reasonings;
 
 public enum EReasoningAnalytic {
 
-	REGRESSAO_LOGISTICA_MULTINOMIAL("maxent"), MULTILAYER_PERCEPTRON("mlp");
+	POISSON("poisson"), NAIVE_BAYES("nb");
 
 	private String type;
 

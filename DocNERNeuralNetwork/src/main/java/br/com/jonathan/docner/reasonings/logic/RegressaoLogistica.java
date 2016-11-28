@@ -1,4 +1,4 @@
-package br.com.jonathan.docner.reasonings.analytic;
+package br.com.jonathan.docner.reasonings.logic;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
@@ -12,7 +12,7 @@ import java.util.Map;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import br.com.jonathan.docner.reasonings.EReasoningAnalytic;
+import br.com.jonathan.docner.reasonings.EReasoningLogic;
 import br.com.jonathan.docner.reasonings.IReasoning;
 import br.com.jonathan.docner.reasonings.ReasoningException;
 import br.com.jonathan.docner.vo.RNDataInVO;
@@ -58,7 +58,7 @@ public class RegressaoLogistica implements IReasoning{
 			
 			return new RNDataInVO( 
 					sequence,
-					EReasoningAnalytic.REGRESSAO_LOGISTICA_MULTINOMIAL, 
+					EReasoningLogic.REGRESSAO_LOGISTICA_MULTINOMIAL, 
 					writer, 
 					getResultSequential(writer, sequential) 
 			);
