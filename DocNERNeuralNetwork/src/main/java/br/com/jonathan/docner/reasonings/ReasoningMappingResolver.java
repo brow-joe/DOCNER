@@ -1,5 +1,7 @@
 package br.com.jonathan.docner.reasonings;
 
+import java.util.Objects;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -12,7 +14,7 @@ import br.com.jonathan.docner.vo.RNDataInVO;
 public class ReasoningMappingResolver{
 	protected final Logger LOGGER = LogManager.getLogger( ReasoningMappingResolver.class );
 
-	public RNDataInVO resolve( Integer sequence, EReasoningLogic logic, String dataSet, String[ ] sequential ) throws ReasoningException {
+	public RNDataInVO trainerResolve( Integer sequence, EReasoningLogic logic, String dataSet, String[ ] sequential ) throws ReasoningException {
 		RNDataInVO dataIn;
 		switch ( logic ) {
 			case POISSON:
@@ -28,7 +30,7 @@ public class ReasoningMappingResolver{
 		return dataIn;
 	}
 
-	public RNDataInVO resolve( Integer sequence, EReasoningAnalytic analytic, String dataSet, String[ ] sequential ) throws ReasoningException {
+	public RNDataInVO trainerResolve( Integer sequence, EReasoningAnalytic analytic, String dataSet, String[ ] sequential ) throws ReasoningException {
 		RNDataInVO dataIn;
 		switch ( analytic ) {
 			case REGRESSAO_LOGISTICA_MULTINOMIAL:
@@ -42,6 +44,32 @@ public class ReasoningMappingResolver{
 				break;
 		}
 		return dataIn;
+	}
+
+	public void classifierResolver( RNDataInVO in, String[ ] classifier ) throws ReasoningException {
+		if ( Objects.nonNull( in.getAnalytic() ) ) {
+			switch ( in.getAnalytic() ) {
+				case REGRESSAO_LOGISTICA_MULTINOMIAL:
+					new RegressaoLogistica().classifier( in, classifier );
+					break;
+				case MULTILAYER_PERCEPTRON:
+					new MultilayerPerceptron().classifier( in, classifier );
+					break;
+				default:
+					break;
+			}
+		} else if ( Objects.nonNull( in.getLogic() ) ) {
+			switch ( in.getLogic() ) {
+				case POISSON:
+					new Poisson().classifier( in, classifier );
+					break;
+				case NAIVE_BAYES:
+					new NaiveBayes().classifier( in, classifier );
+					break;
+				default:
+					break;
+			}
+		}
 	}
 
 }

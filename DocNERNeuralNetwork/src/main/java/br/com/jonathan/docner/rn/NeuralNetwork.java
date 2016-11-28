@@ -1,10 +1,9 @@
 package br.com.jonathan.docner.rn;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -19,7 +18,8 @@ import br.com.jonathan.docner.reasonings.EReasoningLogic;
 import br.com.jonathan.docner.reasonings.ReasoningException;
 import br.com.jonathan.docner.reasonings.ReasoningMappingResolver;
 import br.com.jonathan.docner.vo.RNDataInVO;
-import br.com.jonathan.docner.vo.RNVO;
+import br.com.jonathan.docner.vo.RNDataOutVO;
+import br.com.jonathan.docner.vo.ResultSetVO;
 
 public class NeuralNetwork implements INeuralNetwork{
 	protected final Logger LOGGER = LogManager.getLogger( NeuralNetwork.class );
@@ -30,6 +30,8 @@ public class NeuralNetwork implements INeuralNetwork{
 	private final String MSG_REASONINGS_EMPTY = "Nenhum raciocinio definido!";
 	private final String MSG_REASONINGS_COLLECT_EMPTY = "Nenhum dado coletado!";
 	
+	private final String MSG_DATACLASSIFIER_MODEL_EMPTY = "ClassifierSet ou modelo vazios!";
+	
 	private ReasoningMappingResolver resolver;
 	
 	public NeuralNetwork(){
@@ -38,7 +40,7 @@ public class NeuralNetwork implements INeuralNetwork{
 	}
 
 	@Override
-	public RNVO trainer( String dataSet, List< EReasoningLogic > logics, List< EReasoningAnalytic > analytics ) throws NeuralException {
+	public RNDataOutVO trainer( String dataSet, List< EReasoningLogic > logics, List< EReasoningAnalytic > analytics ) throws NeuralException {
 		if ( CollectionUtils.isEmpty( logics ) && CollectionUtils.isEmpty( analytics ) ) {
 			throw new NeuralException( MSG_REASONINGS_EMPTY );
 		}
@@ -67,9 +69,47 @@ public class NeuralNetwork implements INeuralNetwork{
 			throw new NeuralException( MSG_DATASET_EMPTY );
 		}
 	}
+	
+	@Override
+	public List< ResultSetVO > classifier( String classifierSet, RNDataOutVO model ) throws NeuralException {
+		if ( Objects.nonNull( model ) && StringUtils.isNotEmpty( classifierSet ) ) {
+			String[ ] classifier = classifierSet.split( DOCUMENT_SEPARATOR );
+			List< ResultSetVO > resulter = new ArrayList<>();
+			
+			List< RNDataInVO > modelIn = new ArrayList< >( model.getModels() );
+			
+			modelIn.stream().forEach( in -> {
+				try {
+					resolver.classifierResolver( in, classifier );
+				} catch ( Exception e ) {
+					LOGGER.error( e );
+				}
+			} );
+			
+			if(CollectionUtils.isNotEmpty( modelIn )){
+				Collections.sort( 
+						modelIn, 
+						( l, r ) -> Integer.compare( 
+								l.getSequence(), 
+								r.getSequence() 
+						) 
+				);
+				
+				try{
+					resulter.addAll( new RNExecutor().classifier( classifier, model ) );
+				}catch ( RNException e ) {
+					LOGGER.fatal( e );
+					throw new NeuralException( e );
+				}
+			}
+			
+			return resulter;
+		}
+		throw new NeuralException( MSG_DATACLASSIFIER_MODEL_EMPTY );
+	}
 
-	private RNVO collectReasoning( String dataSet, List< EReasoningLogic > logics, List< EReasoningAnalytic > analytics ) throws NeuralException {
-		LinkedList< RNDataInVO > dataInListed = new LinkedList< >();
+	private RNDataOutVO collectReasoning( String dataSet, List< EReasoningLogic > logics, List< EReasoningAnalytic > analytics ) throws NeuralException {
+		List< RNDataInVO > dataInListed = new ArrayList< >();
 		
 		String splited = new String( dataSet );
 		List< String > removed = Arrays.stream( 
@@ -87,7 +127,7 @@ public class NeuralNetwork implements INeuralNetwork{
 			int sequence = 0;
 			if ( CollectionUtils.isNotEmpty( logics ) ) {
 				for ( EReasoningLogic logic : logics ) {
-					RNDataInVO dataIn = resolver.resolve( sequence++, logic, dataSet, sequential );
+					RNDataInVO dataIn = resolver.trainerResolve( sequence++, logic, dataSet, sequential );
 					if ( Objects.nonNull( dataIn ) ) {
 						dataInListed.add( dataIn );
 					}
@@ -96,7 +136,7 @@ public class NeuralNetwork implements INeuralNetwork{
 
 			if ( CollectionUtils.isNotEmpty( analytics ) ) {
 				for ( EReasoningAnalytic analytic : analytics ) {
-					RNDataInVO dataIn = resolver.resolve( sequence++, analytic, dataSet, sequential );
+					RNDataInVO dataIn = resolver.trainerResolve( sequence++, analytic, dataSet, sequential );
 					if ( Objects.nonNull( dataIn ) ) {
 						dataInListed.add( dataIn );
 					}
@@ -112,20 +152,23 @@ public class NeuralNetwork implements INeuralNetwork{
 			LOGGER.info( "REASONINGS DETECTED: " + dataInListed.size() );
 		}
 		
-		//TODO Falta implementar a rede neural em si
-		LOGGER.info( "-------> Resultado dos raciocinios que serão emitido para a rn <-------" );
-		dataInListed.forEach( data->{
-			System.out.println( data.getAnalytic()+" " + data.getLogic() );
-			for(Entry< Integer, Map< String, Double > > a : data.getResultSequential().entrySet()){
-				System.out.print( "\t" );
-				for(Entry< String, Double > b : a.getValue().entrySet()){
-					System.out.print( b.getValue()+"\t" );
-				}
-				System.out.println(  );
-			}
-			System.out.println( "\n" );
-		});
-		return null;
+		try {
+			Collections.sort( 
+					dataInListed, 
+					( l, r ) -> Integer.compare( 
+							l.getSequence(), 
+							r.getSequence() 
+					) 
+			);
+			
+			return new RNExecutor().trainer( 
+					dataSet,
+					new RNDataOutVO( dataInListed ) 
+			);
+		} catch ( RNException e ) {
+			LOGGER.fatal( e );
+			throw new NeuralException( e );
+		}
 	}
 
 }

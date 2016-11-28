@@ -74,5 +74,5 @@ public class RNDataInVO implements Serializable{
 	public void setSequence( Integer sequence ) {
 		this.sequence = sequence;
 	}
-
+	
 }

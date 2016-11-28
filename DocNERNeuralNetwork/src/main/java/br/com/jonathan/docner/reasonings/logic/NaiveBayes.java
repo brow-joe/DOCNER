@@ -1,6 +1,8 @@
 package br.com.jonathan.docner.reasonings.logic;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,6 +63,16 @@ public class NaiveBayes extends ADistribution{
 		}
 
 		return coeficients;
+	}
+	
+	@Override
+	public void classifier( RNDataInVO in, String[ ] classifier ) throws ReasoningException {
+		try {
+			in.setResultSequential( getResultSequential( in.getModel(), classifier ) );
+		} catch ( IOException | ClassNotFoundException | ParseException e ) {
+			LOGGER.error( e );
+			throw new ReasoningException( e );
+		}
 	}
 
 }

@@ -1,6 +1,8 @@
 package br.com.jonathan.docner.reasonings.logic;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,7 +74,17 @@ public class Poisson extends ADistribution{
 		return coeficients;
 	}
 	
-	private static Double fatorial( int n ) {
+	@Override
+	public void classifier( RNDataInVO in, String[ ] classifier ) throws ReasoningException {
+		try {
+			in.setResultSequential( getResultSequential( in.getModel(), classifier ) );
+		} catch ( IOException | ClassNotFoundException | ParseException e ) {
+			LOGGER.error( e );
+			throw new ReasoningException( e );
+		}
+	}
+	
+	private Double fatorial( int n ) {
 		return n <= 1 ? 1 : n * fatorial( n - 1 );
 	}
 

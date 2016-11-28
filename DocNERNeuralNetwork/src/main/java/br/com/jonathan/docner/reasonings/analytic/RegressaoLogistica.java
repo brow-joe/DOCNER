@@ -68,6 +68,16 @@ public class RegressaoLogistica implements IReasoning{
 			throw new ReasoningException( e );
 		}
 	}
+	
+	@Override
+	public void classifier( RNDataInVO in, String[ ] classifier ) throws ReasoningException {
+		try {
+			in.setResultSequential( getResultSequential( in.getModel(), classifier ) );
+		} catch ( IOException e ) {
+			LOGGER.error( e );
+			throw new ReasoningException( e );
+		}
+	}
 
 	private Map< Integer, Map< String, Double > > getResultSequential( ByteArrayOutputStream writer, String[ ] sequential ) throws IOException {
 		Map< Integer, Map< String, Double > > resultSequential = new HashMap< >();

@@ -6,11 +6,11 @@
 [![Github-Master](https://img.shields.io/github/release/filoe/cscore.svg)](https://github.com/brow-joe/DOCNER/tree/master)
 [![Github-Develop](https://img.shields.io/github/release/filoe/cscore.svg)](https://github.com/brow-joe/DOCNER/tree/develop)
 
-DocNer é uma api desenvolvida em java como projeto de conclusão de curso do curso de ciência da computação da faculdades anhanguera de bauru
+DocNer é uma api desenvolvida em java como projeto de tcc do curso de ciência da computação da faculdades anhanguera de bauru
 
-seu contexto é basicamente implementar uma rede neural que analisa classificadores
+seu contexto é basicamente implementar uma rede neural que analisa classificadores estatísticos
 
-### Como funciona a api? ###
+### Detalhes ###
  - **Possui dois tipos de raciocínio** Lógico e Analítico
  - **Classificadores são baseados em métodos estatísticos** 
  - **Trabalha em cima de características**
