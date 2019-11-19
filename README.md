@@ -24,5 +24,3 @@ Frameworks utilizados:
 - [Encog](http://www.heatonresearch.com/encog/)
 - [Spring boot](https://projects.spring.io/spring-boot/)
 - [...]
-
-#### Para mais detalhes sobre a pesquisa consulte a [Monografia](http://www.google.com.br/AindaNaoDisponivel).  ####
